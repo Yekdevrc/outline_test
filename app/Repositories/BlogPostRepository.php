@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\BlogPostInterface;
 use App\Models\BlogPost;
+use Illuminate\Support\Facades\Auth;
 
 class BlogPostRepository implements BlogPostInterface
 {
@@ -16,7 +17,9 @@ class BlogPostRepository implements BlogPostInterface
 
     public function store($request)
     {
-        $blogPost=BlogPost::create($request);
+        $blogPost=BlogPost::create($request + [
+            'user_id'=> Auth::user()->id
+        ]);
 
         return $blogPost;
     }
@@ -25,7 +28,9 @@ class BlogPostRepository implements BlogPostInterface
     {
         $blogPost=BlogPost::findOrFail($id);
 
-        $blogPost->update($request);
+        $blogPost->update($request + [
+            'user_id'=> Auth::user()->id
+        ]);
 
         return $blogPost;
     }
