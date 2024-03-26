@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\BlogPostEvent;
 use App\Interfaces\BlogPostInterface;
 use App\Models\BlogPost;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,17 @@ class BlogPostRepository implements BlogPostInterface
         $blogPost=BlogPost::create($data + [
             'user_id'=> Auth::user()->id
         ]);
+
+        return $blogPost;
+    }
+
+    public function show($id)
+    {
+        $blogPost=BlogPost::with('comments')->where('id',$id)->first();
+
+        $user=Auth::user()->id;
+
+        event(new BlogPostEvent($user, $id));
 
         return $blogPost;
     }

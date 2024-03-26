@@ -47,11 +47,7 @@ class BlogPostController extends Controller
      */
     public function show(string $id)
     {
-        $blogPost=BlogPost::with('comments')->where('id',$id)->first();
-
-        $user=Auth::user()->id;
-
-        event(new BlogPostEvent($user, $id));
+        $blogPost=$this->blogPostRepository->show($id);
 
         return response()->json([
             'blogpost'=>$blogPost
