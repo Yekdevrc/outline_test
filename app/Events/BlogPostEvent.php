@@ -20,9 +20,9 @@ class BlogPostEvent implements ShouldBroadcast
 
     public $users = [];
 
-    public function __construct($user)
+    public function __construct($user, $blogPostId)
     {
-        array_push($this->users, $user);
+        array_push($this->users, $blogPostId, $user);
     }
 
     /**
@@ -30,10 +30,18 @@ class BlogPostEvent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
+        return new Channel('users');
+    }
+
+    public function broadcastAs()
+    {
+        return 'users';
+    }
+
+    public function broadcastWith()
+    {
+        return $this->users;
     }
 }
