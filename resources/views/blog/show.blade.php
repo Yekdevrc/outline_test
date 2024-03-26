@@ -59,6 +59,7 @@
   @endsection
 
   @push('scripts')
+  <script src="{{ asset('js/app.js') }}"></script>
   <script>
     $(document).ready(function(){
         $('#editBlog').on('click', function (){
