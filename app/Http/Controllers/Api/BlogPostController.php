@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\BlogPostEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\StoreBlogPostRequest;
 use App\Interfaces\BlogPostInterface;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogPostController extends Controller
 {
@@ -52,8 +54,8 @@ class BlogPostController extends Controller
         event(new BlogPostEvent($user, $id));
 
         return response()->json([
-            'blogpost'=>
-        ])
+            'blogpost'=>$blogPost
+        ]);
     }
 
     /**
