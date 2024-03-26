@@ -42,7 +42,7 @@ class BlogPostController extends Controller
      */
     public function store(StoreBlogPostRequest $request)
     {
-        $blogPost=$this->blogPostRepository->store($request);
+        $blogPost=$this->blogPostRepository->store($request->validated());
 
         return back()->with('success', "Blog Post Added Successfully!!");
     }
@@ -73,7 +73,7 @@ class BlogPostController extends Controller
      */
     public function update(UpdateBlogPostRequest $request, $id)
     {
-        $blogPost=$this->blogPostRepository->update($request, $id);
+        $blogPost=$this->blogPostRepository->update($request->validated(), $id);
 
         return redirect(route('blog.index'));
     }

@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function (){
     Route::resource('blog', BlogPostController::class);
-    Route::resource('comment', CommentController::class)->except('index', 'show', 'edit');
+    Route::resource('comments', CommentController::class)->except('index', 'show', 'edit');
 });
 
 require __DIR__.'/auth.php';
