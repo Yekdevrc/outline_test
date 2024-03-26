@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BlogPostEvent;
 use App\Models\BlogPost;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\StoreBlogPostRequest;
 use App\Http\Requests\Blog\UpdateBlogPostRequest;
 use App\Interfaces\BlogPostInterface;
 use App\Models\Comment;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Auth;
 
 class BlogPostController extends Controller
 {
@@ -55,6 +55,10 @@ class BlogPostController extends Controller
         $blogPost=BlogPost::findOrFail($id);
 
         $comments=Comment::with('blogPost')->where('blog_post_id', $id)->get();
+
+        $user=Auth::user()->id;
+
+        event(new BlogPostEvent($user, $id));
 
         return view('blog.show', compact('blogPost', 'comments'));
     }

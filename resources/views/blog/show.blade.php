@@ -50,6 +50,7 @@
                </td>
            </tr>
        @endforeach
+       <p id="user">No. of User Active on this post: </p>
         </table>
    @endif
     </div>
@@ -66,5 +67,12 @@
             const input=$('#InputField').removeAttr('disabled')
         })
     })
+
+
+    //websocket
+    Echo.channel(`users`)
+            .listen('users', (e) => {
+                document.getElementById('#user').innerHTML = e.users.length
+            });
 </script>
   @endpush
