@@ -16,7 +16,7 @@ class BlogPostController extends Controller
      * Display a listing of the resource.
      */
     private $blogPostRepository;
-     public function __construct(BlogPostInterface $blogPostRepository)
+    public function __construct(BlogPostInterface $blogPostRepository)
      {
         $this->blogPostRepository=$blogPostRepository;
      }

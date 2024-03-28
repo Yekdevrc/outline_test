@@ -26,7 +26,7 @@
             <button type="submit" class="btn btn-info btn-sm">Save</button>
         </form>
 
-        @if(count($comments) > 0)
+        @if(count($blogPost->comments) > 0)
         <label for="comments" class="form-label">Comments</label>
         <table class="table table-hover">
            <tr>

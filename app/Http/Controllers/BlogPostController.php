@@ -52,15 +52,9 @@ class BlogPostController extends Controller
      */
     public function show($id)
     {
-        $blogPost=BlogPost::findOrFail($id);
+        $blogPost=BlogPost::with('comments')->findOrFail($id);
 
-        $comments=Comment::with('blogPost')->where('blog_post_id', $id)->get();
-
-        $user=Auth::user()->id;
-
-        event(new BlogPostEvent($user, $id));
-
-        return view('blog.show', compact('blogPost', 'comments'));
+        return view('blog.show', compact('blogPost'));
     }
 
     /**

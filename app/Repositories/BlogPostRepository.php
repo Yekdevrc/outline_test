@@ -27,11 +27,11 @@ class BlogPostRepository implements BlogPostInterface
 
     public function show($id)
     {
-        $blogPost=BlogPost::with('comments')->where('id',$id)->first();
+        $blogPost=BlogPost::with('comments')->findOrFail($id);
 
-        $user=Auth::user()->id;
+        // $user=Auth::user()->id;
 
-        event(new BlogPostEvent($user, $id));
+        // event(new BlogPostEvent($user, $id));
 
         return $blogPost;
     }
